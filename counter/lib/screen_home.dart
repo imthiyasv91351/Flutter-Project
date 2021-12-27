@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ScreenHome extends StatefulWidget {
-  const ScreenHome({Key? key}) : super(key: key);
-
-  @override
-  _ScreenHomeState createState() => _ScreenHomeState();
-}
-
-class _ScreenHomeState extends State<ScreenHome> {
-  int _counter = 0;
+class ScreenHome extends StatelessWidget {
+  ValueNotifier<int> _counter = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +9,29 @@ class _ScreenHomeState extends State<ScreenHome> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            _counter.toString(),
-            style: const TextStyle(fontSize: 50, color: Colors.purple),
-          ),
+          ValueListenableBuilder(
+              valueListenable: _counter,
+              builder: (BuildContext ctx, int newValue, Widget? child) {
+                return Text(
+                  newValue.toString(),
+                  style: const TextStyle(fontSize: 50, color: Colors.purple),
+                );
+              }),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               FloatingActionButton(
                   onPressed: () {
-                    setState(() {
-                      _counter = _counter - 1;
-                    });
+                    // setState(() {
+                    _counter.value = _counter.value - 1;
+                    // });
                   },
                   child: const Icon(Icons.remove)),
               FloatingActionButton(
                   onPressed: () {
-                    setState(() {
-                      _counter = _counter + 1;
-                    });
+                    // setState(() {
+                    _counter.value = _counter.value + 1;
+                    // });
                   },
                   child: const Icon(Icons.add)),
             ],
@@ -43,9 +40,9 @@ class _ScreenHomeState extends State<ScreenHome> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _counter = 0;
-                    });
+                    // setState(() {
+                    _counter.value = 0;
+                    // });
                   },
                   child: const Text('RESET'))
             ],
