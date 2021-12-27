@@ -1,7 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:login_example/main.dart';
 import 'package:login_example/screens/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   var username = 'username';
   var password = 'password';
+  // ignore: prefer_final_fields
   bool _isDataMatched = true;
   final _formKey = GlobalKey<FormState>();
 
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (_formKey.currentState!.validate()) {
                           checkLogin(context);
                         } else {
-                          print('Data is empty');
+                          // print('Data is empty');
                         }
                         // checkLogin(context);
                         setState(() {
@@ -106,16 +107,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void checkLogin(BuildContext ctx) {
+  void checkLogin(BuildContext ctx) async {
     final _username = _textController.text;
     final _password = _passwordController.text;
     if (_username == _password) {
+      final _sharedPref = await SharedPreferences.getInstance();
+      await _sharedPref.setBool(SAVE_KEY_NAME, true);
       //goto home
       Navigator.of(ctx).pushReplacement(
           MaterialPageRoute(builder: (ctx) => const HomeScreen()));
     } else {
-      const _errorMessage = "Username and Password doesn't match";
-      print(_errorMessage);
+      // const _errorMessage = "Username and Password doesn't match";
+      print("User name and pass doesn't match");
 
       //snackbar
       // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
