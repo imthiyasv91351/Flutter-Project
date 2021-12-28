@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-import 'package:tabs_demo/db/functions/db_function1.dart';
+import 'package:tabs_demo/controllers/handle_api.dart';
 import 'package:tabs_demo/db/model/data_model.dart';
 // import 'package:tabs_demo/provider/provider_demo.dart';
 import 'package:tabs_demo/screen_profile.dart';
@@ -13,7 +12,9 @@ class EmployeeScreen extends StatefulWidget {
 }
 
 class _EmployeeScreenState extends State<EmployeeScreen> {
-  final _textController = TextEditingController();
+  final _userIDController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _bodyController = TextEditingController();
   bool _isDeleteClicked = true;
   // ignore: avoid_init_to_null
   var _deleteIndex = null;
@@ -23,19 +24,19 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
   Widget build(BuildContext context) {
     // var employee = Provider.of<ProviderDemo>(context).employee;
     // print('Building employee screen');
-    // getAllEmployee();
+    getAllPost();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Employee'),
+            const Text('Posts'),
             Visibility(
                 visible: !_isDeleteClicked,
                 child: TextButton(
                   onPressed: () {
-                    deleteEmployee(_deleteIndex);
+                    deletePost(_deleteIndex);
                     setState(() {
                       _deleteIndex = null;
                       _isDeleteClicked = true;
@@ -59,21 +60,23 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                 final id = data.id;
                 // print(data.id);
                 return ListTile(
-                  // tileColor: (_isSelected) ? (Colors.black12) : (null),
-                  // selectedTileColor: (_isSelected) ? (Colors.black12) : (null),
-                  title: Text(data.name),
-                  subtitle: Text('ID: $id'),
-                  leading: const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage('assets/img/avatar.png'),
+                  title: Text(
+                    data.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.purple),
                   ),
+                  subtitle: Text('ID: $id'),
+                  // leading: const CircleAvatar(
+                  //   radius: 30,
+                  //   backgroundImage: AssetImage('assets/img/avatar.png'),
+                  // ),
                   trailing: TextButton(
                     child: const Icon(
                       Icons.arrow_forward,
                       color: Colors.purple,
                     ),
                     onPressed: () {
-                      // deleteEmployee(data.id);
+                      deletePost(data.id);
                     },
                   ),
                   onLongPress: () {
@@ -86,7 +89,11 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return ProfileScreen(id: data.id, name: data.name);
+                      return ProfileScreen(
+                          id: data.id,
+                          title: data.title,
+                          content: data.body,
+                          userID: data.userId);
                     }));
                   },
                 );
@@ -104,11 +111,27 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
               builder: (context) {
                 return AlertDialog(
                   title: const Text('Add an employee'),
-                  content: TextField(
-                    controller: _textController,
-                    decoration: const InputDecoration(
-                        // border: OutlineInputBorder(),
-                        hintText: 'Type an employee name...'),
+                  content: Column(
+                    children: [
+                      TextField(
+                        controller: _userIDController,
+                        decoration: const InputDecoration(
+                            // border: OutlineInputBorder(),
+                            hintText: 'Type your user ID...'),
+                      ),
+                      TextField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                            // border: OutlineInputBorder(),
+                            hintText: 'Type a title...'),
+                      ),
+                      TextField(
+                        controller: _bodyController,
+                        decoration: const InputDecoration(
+                            // border: OutlineInputBorder(),
+                            hintText: 'Type content here...'),
+                      )
+                    ],
                   ),
                   actions: [
                     TextButton(
@@ -118,7 +141,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                         child: const Text('Close')),
                     TextButton(
                         onPressed: () {
-                          onAddEmployee();
+                          onAddPost();
                           Navigator.of(context).pop();
                         },
                         child: const Text('Add')),
@@ -132,13 +155,20 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
     );
   }
 
-  Future<void> onAddEmployee() async {
-    final _name = _textController.text;
-    if (_name.trim().isEmpty) {
+  Future<void> onAddPost() async {
+    final _userID = _userIDController.text;
+    final _title = _titleController.text;
+    final _body = _bodyController.text;
+    if (_userID.trim().isEmpty ||
+        _title.trim().isEmpty ||
+        _body.trim().isEmpty) {
       return;
     }
 
-    final employee = EmployeeModel(name: _name);
-    addEmployee(employee);
+    final post =
+        EmployeeModel(title: _title, body: _body, userId: int.parse(_userID));
+    addPost(post);
   }
+
+  // Future<void> getAllPosts() async {}
 }

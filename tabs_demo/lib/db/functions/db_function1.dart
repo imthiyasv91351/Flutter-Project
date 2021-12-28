@@ -10,12 +10,6 @@ late Database _db;
 // initializing database
 
 Future<void> initializeDatabase() async {
-  // var databasesPath = await getDatabasesPath();
-
-  // await deleteDatabase('/data/user/0/com.example.tabs_demo/databases');
-
-  // print(databasesPath);
-
   _db = await openDatabase(
     'TabsDemo',
     version: 1,
@@ -30,27 +24,27 @@ Future<void> initializeDatabase() async {
 
 // for employee table
 
-Future<void> addEmployee(value) async {
-  await _db.rawQuery('INSERT into employee (name) values(?)', [value.name]);
-  // employeeListNotifier.value.add(value);
-  // employeeListNotifier.notifyListeners();
-  getAllEmployee();
-}
+// Future<void> addEmployee(value) async {
+//   await _db.rawQuery('INSERT into employee (name) values(?)', [value.name]);
+//   // employeeListNotifier.value.add(value);
+//   // employeeListNotifier.notifyListeners();
+//   getAllEmployee();
+// }
 
-Future<void> deleteEmployee(id) async {
-  await _db.rawQuery('Delete from employee where id = ?', [id]);
-  getAllEmployee();
-}
+// Future<void> deleteEmployee(id) async {
+//   await _db.rawQuery('Delete from employee where id = ?', [id]);
+//   getAllEmployee();
+// }
 
-Future<void> getAllEmployee() async {
-  final _values = await _db.rawQuery('Select * from employee');
-  employeeListNotifier.value.clear();
-  for (var map in _values) {
-    final employee = EmployeeModel.fromMap(map);
-    employeeListNotifier.value.add(employee);
-    employeeListNotifier.notifyListeners();
-  }
-}
+// Future<void> getAllEmployee() async {
+//   final _values = await _db.rawQuery('Select * from employee');
+//   employeeListNotifier.value.clear();
+//   for (var map in _values) {
+//     final employee = EmployeeModel.fromMap(map);
+//     employeeListNotifier.value.add(employee);
+//     employeeListNotifier.notifyListeners();
+//   }
+// }
 
 //  For department table
 

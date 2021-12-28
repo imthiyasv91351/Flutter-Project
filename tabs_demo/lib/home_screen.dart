@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:tabs_demo/controllers/handle_api.dart';
 import 'package:tabs_demo/db/functions/db_function1.dart';
 import 'package:tabs_demo/screen_employee.dart';
 import 'package:tabs_demo/screen_department.dart';
@@ -18,7 +19,7 @@ class _ScreenHomeState extends State<ScreenHome> {
   final _pages = [const EmployeeScreen(), const DepartmentScreen()];
   @override
   Widget build(BuildContext context) {
-    getAllEmployee();
+    // getAllEmployee();
     getAllDepartment();
     return Scaffold(
       body: _pages[_currentSelectedIndex],
@@ -32,7 +33,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Employee'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Posts'),
           BottomNavigationBarItem(icon: Icon(Icons.work), label: 'Department'),
         ],
       ),

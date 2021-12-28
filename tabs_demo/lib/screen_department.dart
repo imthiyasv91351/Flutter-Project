@@ -13,6 +13,7 @@ class DepartmentScreen extends StatefulWidget {
 
 class _DepartmentScreenState extends State<DepartmentScreen> {
   final _textController = TextEditingController();
+  // ignore: avoid_init_to_null
   var _deleteIndex = null;
   bool _isDeleteClicked = true;
 
@@ -50,7 +51,7 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
           return ListView.separated(
               itemBuilder: (ctx, index) {
                 final data = departmentList[index];
-                print(data.id);
+                // print(data.id);
                 return ListTile(
                   title: Text(
                     data.name,
@@ -68,7 +69,6 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
                       _isDeleteClicked = false;
                       _deleteIndex = data.id;
                     });
-                    print(_deleteIndex);
                   },
                 );
               },
