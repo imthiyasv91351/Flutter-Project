@@ -1,19 +1,16 @@
 class EmployeeModel {
   int? id;
-  final String title;
-  final String body;
-  int userId;
+  final String name;
+  final String email;
 
-  EmployeeModel(
-      {required this.title, required this.body, required this.userId, this.id});
+  EmployeeModel({required this.name, required this.email, this.id});
 
   static EmployeeModel fromMap(Map<String, Object?> map) {
     final id = map['id'] as int;
-    final title = map['title'] as String;
-    final body = map['body'] as String;
-    final userId = map['userId'] as int;
+    final name = map['name'] as String;
+    final email = map['email'] as String;
 
-    return EmployeeModel(id: id, title: title, body: body, userId: userId);
+    return EmployeeModel(id: id, name: name, email: email);
   }
 }
 

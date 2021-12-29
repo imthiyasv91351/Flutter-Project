@@ -12,9 +12,8 @@ class EmployeeScreen extends StatefulWidget {
 }
 
 class _EmployeeScreenState extends State<EmployeeScreen> {
-  final _userIDController = TextEditingController();
-  final _titleController = TextEditingController();
-  final _bodyController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
   bool _isDeleteClicked = true;
   // ignore: avoid_init_to_null
   var _deleteIndex = null;
@@ -24,19 +23,18 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
   Widget build(BuildContext context) {
     // var employee = Provider.of<ProviderDemo>(context).employee;
     // print('Building employee screen');
-    getAllPost();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Posts'),
+            const Text('Employee'),
             Visibility(
                 visible: !_isDeleteClicked,
                 child: TextButton(
                   onPressed: () {
-                    deletePost(_deleteIndex);
+                    deleteEmployee(_deleteIndex);
                     setState(() {
                       _deleteIndex = null;
                       _isDeleteClicked = true;
@@ -61,22 +59,22 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                 // print(data.id);
                 return ListTile(
                   title: Text(
-                    data.title,
+                    data.name,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.purple),
                   ),
                   subtitle: Text('ID: $id'),
-                  // leading: const CircleAvatar(
-                  //   radius: 30,
-                  //   backgroundImage: AssetImage('assets/img/avatar.png'),
-                  // ),
+                  leading: const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage('assets/img/avatar.png'),
+                  ),
                   trailing: TextButton(
                     child: const Icon(
                       Icons.arrow_forward,
                       color: Colors.purple,
                     ),
                     onPressed: () {
-                      deletePost(data.id);
+                      // deleteEmployee(data.id);
                     },
                   ),
                   onLongPress: () {
@@ -90,10 +88,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return ProfileScreen(
-                          id: data.id,
-                          title: data.title,
-                          content: data.body,
-                          userID: data.userId);
+                          id: data.id, name: data.name, email: data.email);
                     }));
                   },
                 );
@@ -114,23 +109,17 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                   content: Column(
                     children: [
                       TextField(
-                        controller: _userIDController,
+                        controller: _nameController,
                         decoration: const InputDecoration(
                             // border: OutlineInputBorder(),
-                            hintText: 'Type your user ID...'),
+                            hintText: 'Type your name...'),
                       ),
                       TextField(
-                        controller: _titleController,
+                        controller: _emailController,
                         decoration: const InputDecoration(
                             // border: OutlineInputBorder(),
-                            hintText: 'Type a title...'),
+                            hintText: 'Type your email...'),
                       ),
-                      TextField(
-                        controller: _bodyController,
-                        decoration: const InputDecoration(
-                            // border: OutlineInputBorder(),
-                            hintText: 'Type content here...'),
-                      )
                     ],
                   ),
                   actions: [
@@ -141,7 +130,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                         child: const Text('Close')),
                     TextButton(
                         onPressed: () {
-                          onAddPost();
+                          onAddEmployee();
                           Navigator.of(context).pop();
                         },
                         child: const Text('Add')),
@@ -155,19 +144,16 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
     );
   }
 
-  Future<void> onAddPost() async {
-    final _userID = _userIDController.text;
-    final _title = _titleController.text;
-    final _body = _bodyController.text;
-    if (_userID.trim().isEmpty ||
-        _title.trim().isEmpty ||
-        _body.trim().isEmpty) {
+  Future<void> onAddEmployee() async {
+    final _name = _nameController.text;
+    final _email = _emailController.text;
+    if (_name.trim().isEmpty || _email.trim().isEmpty) {
       return;
     }
 
-    final post =
-        EmployeeModel(title: _title, body: _body, userId: int.parse(_userID));
-    addPost(post);
+    // final employee = EmployeeModel(name: _name, email: _email);
+    Map employee = {'name': _name, 'email': _email};
+    addEmployee(employee);
   }
 
   // Future<void> getAllPosts() async {}

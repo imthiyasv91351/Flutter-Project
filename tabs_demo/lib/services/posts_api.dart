@@ -4,12 +4,41 @@ import 'package:http/http.dart' as http;
 import 'package:tabs_demo/constants/strings.dart';
 
 class APIManager {
-  Future<List> getPosts() async {
+  Future<List> getAllEmployee() async {
     // var client = http.Client();
     // var url = Uri.
-    final response = await http.get(Uri.parse(Strings.posts));
+    print('In API manager');
+    final response = await http.get(Uri.parse(Strings.employeeURL));
     return jsonDecode(response.body);
-    // try {
+  }
+
+  Future<void> addEmployee(data) async {
+    print(data);
+    await http
+        .post(Uri.parse(Strings.employeeURL), body: jsonEncode(data), headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    });
+    // return jsonDecode(response.body);
+  }
+
+  Future<void> deleteEmployee(id) async {
+    await http.delete(
+      Uri.parse('http://10.0.2.2:5000/api/v1/employee/?id=$id'),
+    );
+    // return jsonDecode(response.body);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// try {
     //   final response = await http.get(Uri.parse(Strings.posts));
     //   if (response.statusCode == 200) {
     //     print(response.body);
@@ -26,19 +55,3 @@ class APIManager {
     // var response = await http.get(url);
     // final response = await http.get(Uri.parse(Strings.posts));
     // return jsonDecode(response.body);
-  }
-
-  Future<void> createPosts(data) async {
-    await http.post(Uri.parse(Strings.posts), body: jsonEncode(data), headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    });
-    // return jsonDecode(response.body);
-  }
-
-  Future<void> deletePosts(id) async {
-    await http.delete(
-      Uri.parse('https://jsonplaceholder.typicode.com/posts/$id'),
-    );
-    // return jsonDecode(response.body);
-  }
-}

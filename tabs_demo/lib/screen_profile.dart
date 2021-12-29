@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tabs_demo/provider/provider_demo.dart';
-import 'package:tabs_demo/services/posts_api.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final title;
-  String content;
-  int userID;
+  final name;
+  String email;
 
   // ignore: prefer_typing_uninitialized_variables
   var id;
   // ignore: use_key_in_widget_constructors
-  ProfileScreen(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.userID});
+  ProfileScreen({
+    required this.id,
+    required this.name,
+    required this.email,
+  });
   // const ProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -25,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
     // print('rebuild');
     return Scaffold(
       appBar: AppBar(
-        title: Text(id.toString()),
+        title: Text(name),
         backgroundColor: Colors.purple,
       ),
       body: Padding(
@@ -34,11 +30,6 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('User ID: $userID',
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    color: Colors.purple)),
             Text('ID: $id',
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -48,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
               height: 50,
             ),
             const Text(
-              'Title:',
+              'Name:',
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 20,
@@ -58,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             Text(
-              title,
+              name,
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
@@ -68,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
               height: 50,
             ),
             const Text(
-              'Content:',
+              'email:',
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 20,
@@ -78,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             Text(
-              content,
+              email,
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
