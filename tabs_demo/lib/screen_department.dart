@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tabs_demo/controllers/handle_api.dart';
 // import 'package:provider/provider.dart';
-import 'package:tabs_demo/db/functions/db_function1.dart';
+// import 'package:tabs_demo/db/functions/db_function1.dart';
 import 'package:tabs_demo/db/model/data_model.dart';
 // import 'package:tabs_demo/provider/provider_demo.dart';
 
@@ -128,7 +129,8 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
       return;
     }
 
-    final department = DepartmentModel(name: _deapartmentName);
+    // final department = DepartmentModel(name: _deapartmentName);
+    Map department = {'name': _deapartmentName};
     addDepartment(department);
   }
 }

@@ -7,13 +7,11 @@ class APIManager {
   Future<List> getAllEmployee() async {
     // var client = http.Client();
     // var url = Uri.
-    print('In API manager');
     final response = await http.get(Uri.parse(Strings.employeeURL));
     return jsonDecode(response.body);
   }
 
   Future<void> addEmployee(data) async {
-    print(data);
     await http
         .post(Uri.parse(Strings.employeeURL), body: jsonEncode(data), headers: {
       'Content-type': 'application/json; charset=UTF-8',
@@ -24,6 +22,31 @@ class APIManager {
   Future<void> deleteEmployee(id) async {
     await http.delete(
       Uri.parse('http://10.0.2.2:5000/api/v1/employee/?id=$id'),
+    );
+    // return jsonDecode(response.body);
+  }
+
+  //department
+
+  Future<List> getAllDepartment() async {
+    // var client = http.Client();
+    // var url = Uri.s
+    final response = await http.get(Uri.parse(Strings.departmentURL));
+    return jsonDecode(response.body);
+  }
+
+  Future<void> addDepartment(data) async {
+    await http.post(Uri.parse(Strings.departmentURL),
+        body: jsonEncode(data),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        });
+    // return jsonDecode(response.body);
+  }
+
+  Future<void> deleteDepartment(id) async {
+    await http.delete(
+      Uri.parse('http://10.0.2.2:5000/api/v1/department/?id=$id'),
     );
     // return jsonDecode(response.body);
   }

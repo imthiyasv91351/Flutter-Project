@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
               height: 50,
             ),
             const Text(
-              'email:',
+              'Email:',
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 20,

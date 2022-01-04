@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabs_demo/controllers/handle_api.dart';
 // import 'package:tabs_demo/controllers/handle_api.dart';
-import 'package:tabs_demo/db/functions/db_function1.dart';
 import 'package:tabs_demo/screen_employee.dart';
 import 'package:tabs_demo/screen_department.dart';
 

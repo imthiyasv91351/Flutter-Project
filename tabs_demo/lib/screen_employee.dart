@@ -106,21 +106,42 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
               builder: (context) {
                 return AlertDialog(
                   title: const Text('Add an employee'),
-                  content: Column(
-                    children: [
-                      TextField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                            // border: OutlineInputBorder(),
-                            hintText: 'Type your name...'),
-                      ),
-                      TextField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                            // border: OutlineInputBorder(),
-                            hintText: 'Type your email...'),
-                      ),
-                    ],
+                  content: SizedBox(
+                    height: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          controller: _nameController,
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return "Value is empty";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
+                          decoration: const InputDecoration(
+                              // border: OutlineInputBorder(),
+                              hintText: 'Type your name...'),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        TextFormField(
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return "Value is empty";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                              // border: OutlineInputBorder(),
+                              hintText: 'Type your email...'),
+                        ),
+                      ],
+                    ),
                   ),
                   actions: [
                     TextButton(
@@ -131,7 +152,10 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     TextButton(
                         onPressed: () {
                           onAddEmployee();
-                          Navigator.of(context).pop();
+                          if (_nameController.text.trim().isNotEmpty &&
+                              _emailController.text.trim().isNotEmpty) {
+                            Navigator.of(context).pop();
+                          }
                         },
                         child: const Text('Add')),
                   ],
